@@ -1,0 +1,67 @@
+#calendarsize {
+	position: absolute;
+	top: 780px;
+	left: 50%;
+	margin-left: -420px;
+	width: 70%;
+	text-align: center;
+}
+
+#calendar {
+	border-collapse: collapse;
+	border: 0.5px solid gray;
+	postion: absolute;
+	top: 510px;
+}
+
+#calendar th {
+	width: 120px;
+	border: 1px solid gray;
+}
+
+#calendar td {
+	width: 120px;
+	height: 120px;
+	border: 1px solid gray;
+	text-align: left;
+	vertical-align: top;
+	position: relative;
+}
+
+
+
+.clist>p {
+	font-size: 10px;
+	margin: 2px;
+	background-color: gray;
+	font-family: 'Fira Sans', 'Extra-Light';
+}
+
+.offlinelist>p {
+	font-size: 10px;
+	margin: 2px;
+	background-color: green;
+	height: 15px;
+	font-family: 'Fira Sans', 'Extra-Light';
+}
+
+.onlinelist>p {
+	font-size: 10px;
+	margin: 2px;
+	background-color: orange;
+	height: 15px;
+	font-family: 'Fira Sans', 'Extra-Light';
+}
+
+
+.cpreview {
+	position: absolute;
+	top: -30px;
+	left: 10px;
+	background-color: pink;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 40px 40px 40px 1px;
+}

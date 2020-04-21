@@ -1,0 +1,98 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+#qna-title{
+	position: absolute;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 300px;
+	color: white;
+	left: 50%;
+	margin-left: -100px;
+	float:left;
+	z-index: 10;
+}
+
+#qna-title h1{
+	float:left;
+	z-index: 100;
+}
+
+/* 하얀색 보드 */
+#whiteBoard{
+	position: absolute;
+	top: 480px;
+}
+
+/* (푸터하단배치를 위한) 빨간색 보드 + 하얀색 보드 div 사이즈 */
+#boardSize{
+	height: 1000px;
+}
+
+#qna-table{
+	position: absolute;
+	top: 780px;
+	left: 50%;
+	margin-left: -530px;
+	width: 70%;
+	text-align: center;
+}
+
+#admin-qna-table{
+	position: absolute;
+	top: 580px;
+	left: 50%;
+	margin-left: -480px;
+	width: 70%;
+	text-align: center;
+}
+
+table {
+	position: absolute;
+	border-collapse: collapse;
+	width: 100%;
+	border-right: hidden;
+}
+th, td {
+	border-bottom: 1px solid rgb(79, 78, 92);
+	border-right: 1px solid rgb(79, 78, 92);
+	padding: 30px;
+}
+
+  
+#write-btn{
+	background-color: rgb(79, 78, 92);
+	border: none;
+	color: white;
+	padding: 7px 40px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 20px;
+	cursor: pointer;
+	border-radius: 12px;
+	position: absolute;
+	top: 1400px;
+	right: 220px;
+}
+
+#paging {
+	position: absolute;
+	top: 1500px;
+	float: left;
+	left: 650px;
+	height: 30px;
+	width: 70%;
+}
+
+#admin-paging{
+	position: absolute;
+	top: 1253px;
+	float: left;
+	left: 508px;
+	height: 30px;
+	width: 70%;
+}

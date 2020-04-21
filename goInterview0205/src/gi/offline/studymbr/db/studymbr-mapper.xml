@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "gi.offline.studymbr.mapper">
+
+<resultMap id = "giStdMbrMap" type = "giStdMbrDto" >
+	<result property="id" column = "ID"/>
+	<result property="stdSeq" column = "STD_SEQ"/>
+	<result property="stdTitle" column = "STD_TITLE"/>
+	<result property="stdContents" column = "STD_CONTENTS"/>
+	<result property="stdDt" column = "STD_DT"/>
+	<result property="stdId" column = "STD_ID"/>
+	<result property="stdStat" column = "STD_STAT"/>
+	<result property="stdShowYn" column = "STD_SHOW_YN"/>
+	<result property="stdMbrNum" column = "STD_MBR_NUM"/>	
+</resultMap>
+
+
+<select id="getCalViewListById" resultMap="giStdMbrMap">
+SELECT *
+FROM
+(SELECT (ROW_NUMBER() OVER(PARTITION BY SUBSTR(STD_DT,1,8) ORDER BY STD_DT))RN, STD_SEQ, ID, STD_ID, STD_DT, STD_TITLE, STD_CONTENTS, STD_STAT, STD_SHOW_YN, STD_MBR_NUM
+FROM TB_STUDY JOIN TB_STD_MBR 
+USING (STD_SEQ)
+WHERE ID = #{id} AND SUBSTR(STD_DT,1,6) = #{stdDt})
+WHERE RN BETWEEN 1 AND 3
+ORDER BY STD_DT
+
+</select>
+
+<select id = "getCalList"  resultMap = "giStdMbrMap">
+SELECT STD_SEQ, ID, STD_TITLE, STD_CONTENTS, STD_DT, STD_ID, STD_STAT, STD_SHOW_YN, STD_MBR_NUM
+FROM TB_STUDY JOIN TB_STD_MBR USING (STD_SEQ)
+WHERE ID = #{id}
+AND SUBSTR(STD_DT, 1, 8) = #{stdDt}
+</select>
+
+<insert id="insert" parameterType = "giStdMbrDto">
+	INSERT INTO TB_CHAT VALUES(TB_CHAT_SEQ.NEXTVAL, #{chatTitle}, #{chatMgr}, #{chatStDt}, 
+	#{chatStat}, #{chatNum})
+</insert>
+
+<insert id="offlinejoin" parameterType="giStdMbrDto">
+	INSERT INTO TB_STD_MBR VALUES(#{stdSeq},#{id})
+</insert>
+
+<select id="getOffSeq" resultMap="giStdMbrMap">
+	SELECT STD_SEQ FROM TB_STUDY WHERE STD_ID=#{stdId} AND STD_DT=#{stdDt}
+</select>
+
+<select id = "offlineListAll" resultMap="giStdMbrMap">
+	SELECT STD_SEQ, STD_TITLE, STD_CONTENTS, STD_DT, STD_ID, STD_STAT, STD_SHOW_YN, STD_MBR_NUM
+	FROM TB_STUDY
+	WHERE STD_STAT = 'R'
+	ORDER BY STD_DT
+</select>
+
+<select id ="offlineDetail" resultMap="giStdMbrMap">
+	SELECT STD_SEQ, STD_TITLE, STD_CONTENTS, STD_DT, STD_ID, STD_STAT, STD_SHOW_YN, STD_MBR_NUM
+	FROM TB_STUDY
+	WHERE STD_SEQ = #{stdSeq}
+</select>
+
+<select id="offStdMbrList" resultMap="giStdMbrMap">
+	SELECT ID
+	FROM TB_STD_MBR
+	WHERE STD_SEQ = #{stdSeq}
+</select>
+
+</mapper>

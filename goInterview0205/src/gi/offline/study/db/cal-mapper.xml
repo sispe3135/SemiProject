@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "gi.offline.study.mapper">
+
+<resultMap id = "giCalMap" type = "giStudyDto" >
+	<result property="stdSeq" column = "STD_SEQ"/>
+	<result property="stdTitle" column = "STD_TITLE"/>
+	<result property="stdContents" column = "STD_CONTENTS"/>
+	<result property="stdDt" column = "STD_DT"/>
+	<result property="stdId" column = "STD_ID"/>
+	<result property="stdStat" column = "STD_STAT"/>
+	<result property="stdShowYn" column = "STD_SHOW_YN"/>
+	<result property="stdMbrNum" column = "STD_MBR_NUM"/>
+</resultMap>
+
+
+
+<select id = "getCalList"  resultType = "giStudyDto">
+	SELECT STD_SEQ, STD_TITLE, STD_CONTENTS, STD_DT, STD_ID, STD_STAT, STD_SHOW_YN, STD_MBR_NUM, STD_MBR_NUM
+	FROM TB_STUDY 
+	WHERE STD_ID = #{stdId}
+	AND SUBSTR(STD_DT, 1, 8) = #{stdDt}
+</select>
+
+<insert id = "insert" parameterType = "giStudyDto">
+	INSERT INTO TB_STUDY VALUES(TB_STUDY_SEQ.NEXTVAL, #{stdTitle}, #{stdContents}, #{stdDt}, #{stdId}, #{stdStat}, #{stdShowYn}, #{stdMbrNum})
+</insert>
+
+<select id = "getCalViewList" parameterType="giStudyDto" resultMap = "giCalMap"> 
+	SELECT STD_SEQ, STD_TITLE, STD_CONTENTS, STD_DT, STD_ID, STD_STAT, STD_SHOW_YN, STD_MBR_NUM
+	FROM
+	(SELECT (ROW_NUMBER() OVER(PARTITION BY SUBSTR(STD_DT,1,8) ORDER BY STD_DT))RN,
+		STD_SEQ, STD_TITLE, STD_CONTENTS, STD_DT, STD_ID, STD_STAT, STD_SHOW_YN, STD_MBR_NUM
+		FROM TB_STUDY
+		WHERE STD_ID = #{stdId} AND SUBSTR(STD_DT,1,6) = #{stdDt})
+	WHERE RN BETWEEN 1 AND 3
+	ORDER BY STD_DT
+</select>
+
+<select id = "getCalViewCount" resultType = "int" parameterType = "giStudyDto">
+	SELECT COUNT(*) FROM TB_STUDY WHERE STD_ID = #{stdId} AND SUBSTR(STD_DT, 1, 8) = #{stdDt}
+</select>
+
+</mapper>

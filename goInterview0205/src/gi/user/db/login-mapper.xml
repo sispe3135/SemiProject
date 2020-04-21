@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.login.mapper">
+
+	<resultMap type="MemberDto" id="TbUserResultMap">
+		<result property="idGubun" column="ID_GUBUN"/>
+		<result property="idSeq" column="ID_SEQ"/>
+		<result property="id" column="ID"/>
+		<result property="pw" column="PW"/>
+		<result property="email" column="EMAIL"/>
+		<result property="phone" column="PHONE"/>
+		<result property="tgNo" column="TG_NO"/>
+		<result property="tgYn" column="TG_YN"/>
+		<result property="userYn" column="USER_YN"/>
+		<result property="apRslt" column="AP_RSLT"/>
+		<result property="outRs" column="OUT_RS"/>
+		<result property="dalCnt" column="DAL_CNT"/>
+		<result property="idLat" column="ID_LAT"/>
+		<result property="idLong" column="ID_LONG"/>
+		
+	</resultMap>
+
+	<select id="selectListAll" resultType="MemberDto" resultMap="TbUserResultMap">
+		SELECT * FROM TB_USER WHERE TG_YN='Y'
+	</select>
+	
+	<update id="update" parameterType="MemberDto">
+		UPDATE TB_USER
+		SET PHONE= #{phone}, EMAIL=#{email}, TG_NO=#{tgNo}, TG_YN=#{tgYn}
+		WHERE ID_SEQ = #{idSeq}
+	</update>
+	
+	
+	<insert id="insert" parameterType="MemberDto">
+		INSERT INTO TB_USER
+		VALUES('USER', TB_USER_SEQ.NEXTVAL, #{id}, #{pw}, #{email}, #{phone}, #{tgNo}, #{tgYn}, 'Y', null, null, 0, #{idLat}, #{idLong})
+	</insert>
+	
+	<select id="selectOne" parameterType="MemberDto" resultMap="TbUserResultMap">
+		SELECT * FROM TB_USER WHERE ID_SEQ = #{idSeq}
+	</select>
+	
+	<select id="findMyno" parameterType="MemberDto" resultMap="TbUserResultMap">
+		SELECT ID_SEQ FROM TB_USER WHERE ID = #{id}
+	</select>
+	
+	<select id="idChk" parameterType="MemberDto" resultMap="TbUserResultMap">
+		SELECT * FROM TB_USER WHERE ID = #{id}
+	</select>
+	
+	<select id="login" parameterType="MemberDto" resultMap="TbUserResultMap">
+		SELECT * FROM TB_USER WHERE ID = #{id} AND PW= #{pw} AND USER_YN = 'Y'
+	</select>
+	
+	
+	
+	
+	
+	
+	<select id="selectList" resultMap="TbUserResultMap">
+		 SELECT ID_SEQ, ID, PW, EMAIL, PHONE, TG_NO, TG_YN, USER_YN, AP_RSLT, OUT_RS, DAL_CNT 
+		 FROM TB_USER 
+	</select>
+	
+	<select id="selectOnebyID" parameterType="String" resultMap="TbUserResultMap">
+		SELECT * FROM TB_USER WHERE ID = #{id}
+	</select>
+	
+	<update id="updatebyID" parameterType="MemberDto">	
+		UPDATE TB_USER 
+		SET PW = #{pw}, EMAIL = #{email}, PHONE=#{phone} 
+		WHERE ID = #{id}
+	</update> 
+	
+	<update id="updateout" parameterType="MemberDto">	
+		UPDATE TB_USER SET OUT_RS=#{outRs}, USER_YN='N' WHERE ID = #{id}
+	</update>
+	
+	
+	<delete id="deletebyID" parameterType="String">
+		DELETE FROM TB_USER WHERE ID = #{id}
+	</delete> 
+	
+	
+	<delete id="muldel" parameterType="map">
+		DELETE FROM TB_USER WHERE ID IN
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+

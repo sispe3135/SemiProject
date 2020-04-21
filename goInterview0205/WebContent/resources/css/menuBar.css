@@ -1,0 +1,167 @@
+.aStyle{
+	font-family: 'Fira Sans', 'Extra-Light';
+	color: white;
+	letter-spacing: 5px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+
+/* #barPage{
+	position: absolute;
+	top: 0px;
+	float: right;
+	right: 0;
+	resize: vertical;
+	height: 860px;
+	width: 35%;
+	background-color: rgba(79, 78, 92, 0.8);
+}
+
+#loginPage{
+	position: absolute;
+	top: 0px;
+	float: left;
+	left: 0px;
+	resize: vertical;
+	height: 860px;
+	width: 50%;
+	background-color: rgba(79, 78, 92, 0.8);
+} */
+
+
+
+/* menuBar white */
+#whiteBar1{
+	position: absolute;
+	top: 10px;
+	cursor: pointer;
+	width: 100px;
+	height: 8px;
+	z-index: 1;
+	background-color: white;
+	border-radius: 10px;
+}
+#whiteBar2{
+	position: absolute;
+	top: 26px;
+	cursor: pointer;
+	width: 100px;
+	height: 8px;
+	z-index: 1;
+	background-color: white;
+	border-radius: 10px;
+}
+#whiteBar3{
+	position: absolute;
+	top: 41px;
+	cursor: pointer;
+	width: 100px;
+	height: 8px;
+	z-index: 1;
+	background-color: white;
+	border-radius: 10px;
+}
+
+#whiteBar{
+	position: absolute;
+	top: 20px;
+	float: left;
+	left: 50px;
+}
+
+
+#user_img_line{
+	position: absolute;
+	top: 200px;
+	width: 200px;
+	color: white;
+	z-index: 1;
+	float: left;
+	left: 140px;
+}
+
+
+#menu_mypage_box{
+	position: absolute;
+	cursor: pointer;
+	top: 250px;
+	float: left;
+	left: 50px;
+	z-index:9999;
+}
+
+
+
+#menu_online_box{
+	position: absolute;
+	cursor: pointer;
+	top: 320px;
+	float: left;
+	left: 50px;
+	z-index: 1;
+}
+
+#menu_offline_box{
+	position: absolute;
+	cursor: pointer;
+	top: 390px;
+	float: left;
+	left: 50px;
+	z-index: 1;
+}
+
+
+#menu_qna_box{
+	position: absolute;
+	cursor: pointer;
+	top: 460px;
+	float: left;
+	left: 50px;
+	z-index: 1;
+}
+
+#mypage_sub_ct{
+	background-color : rgb(245,62,91);
+	display: none;
+	opacity : 100%;
+}
+
+#emp_sub_ct{
+	background-color : rgb(245,62,91);
+	display: none;
+	opacity : 100%;
+}
+
+
+#mypageLine{
+	width: 200px;	
+}
+#mypageProfileLine{
+	width: 200px;
+}
+
+#user_img{
+	position: absolute;
+	cursor: pointer;
+ 	top: 140px;
+ 	left : 50px;
+	width: 80px;
+	height: 80px;
+}
+
+#user_id{
+	position: absolute;
+	cursor: pointer;
+	top: 170px;
+	float: left;
+	left: 150px;
+	z-index:9999;
+}
+#user_id > a{
+	font-family: 'Fira Sans', 'Extra-Light';
+	color: white;
+	letter-spacing: 5px;
+	cursor: pointer;
+	text-decoration: none;
+} 

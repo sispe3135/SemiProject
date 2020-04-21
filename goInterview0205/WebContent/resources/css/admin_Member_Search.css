@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+.scroll{
+   -ms-overflow-style: none; /*IE and Edge*/
+   scrollbar-width: none;   /*Firefox*/
+}
+
+.scroll::-webkit-scrollbar { 
+    display: none;   /*Chrome, Safari, Opera*/
+  }
+
+#scroll{
+   position:absolute;
+   top:721px;
+   left:167px;
+   overflow: auto;
+   width: 1044px;
+   height: 1700px;
+}
+
+.scroll-box{
+   border:1px solid rgb(79, 78, 92);
+   width:400px;
+   height:400px;
+   border-radius: 12px;
+   float:left;
+   margin: 60px;
+}
+.scroll-box-tbl{
+    position: relative;
+    top: 30px;
+    left: 34px;
+    width: 373px;
+    float: left;
+}
+
+.scroll-box label, span{
+   text-align: left;
+   font-weight: normal;
+   font-size: x-large;
+}
+
+.scroll-lbl{
+   float:left;
+
+   height: 286px;
+}
+
+.scroll-rgt{
+   word-break: break-all;
+   float:rignt;
+
+   width: 332px;
+   height: 286px;
+}
+
+.scroll-box .mbr-btn {
+   background-color: rgb(208, 208, 213);
+   border: none;
+   padding: 13px 126px;
+   text-align: center;
+   font-size: 20px;
+   border-radius: 12px;
+   position: relative;
+   top: 40px;
+   left: 43px;
+}

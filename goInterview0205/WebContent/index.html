@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="google-signin-client_id" content="138485859643-fctk68k4fk27g87q9qt0v97hr0s4forv.apps.googleusercontent.com">
+
+<title>로그인페이지</title>
+
+
+<script>
+	//원래 사용되던 
+	function registerForm(){
+		location.href="controller.do?command=registerform";
+		
+	}
+</script>
+
+<script>
+	//구글로 필요한
+	function onSignIn(googleUser) {
+		  var profile = googleUser.getBasicProfile();
+		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		  console.log('Name: ' + profile.getName());
+		  console.log('Image URL: ' + profile.getImageUrl());
+		  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		  
+		  signOut()
+		  
+		  location.href="controller.do?command=googlelogin&id="+profile.getId()+"&pw="+profile.getEmail();
+	}
+  function signOut() {
+	    var auth2 = gapi.auth2.getAuthInstance();
+	    auth2.signOut().then(function () {
+	      console.log('User signed out.');
+	    });
+	}
+  
+  
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+</head>
+<body>
+	
+
+	<form action="controller.do" method="post">
+	<input type="hidden" name="command" value="login">
+
+	<table border="1">
+		<col width="100">
+		<col width="100">
+		
+		<tr>
+			<th> i d </th>
+			<td><input type="text" name="id"></td>
+		</tr>
+		<tr>
+			<th> p w </th>
+			<td><input type="password" name="pw"></td>
+		</tr>
+		<tr>
+			<th>카카오로그인</th>
+			<td>    
+				<a id="kakao-login-btn" onclick=""></a>
+				<a href="http://developers.kakao.com/logout"></a>
+				
+<script type='text/javascript'>
+	//카카오로 필요함
+	function findId(){
+		
+		        $.ajax({
+		            type:"GET",
+		            url:"https://kauth.kakao.com/v1/user/me?access_token=fVFvRe2H1BqzqmU_Qaz6UW3Vcu9gt6JlvgDb5Ao9d_cAAAFvnUrVEgfVFvRe2H1BqzqmU_Qaz6UW3Vcu9gt6JlvgDb5Ao9d_cAAAFvnUrVEg",
+		            success:function(json){
+		                var list = $.parseJSON(json);
+		                var listLen = list.length;
+		                var contentStr = "";
+		                for(var i=0; i<listLen; i++){
+		                    contentStr += "[기호"+ list[i].no+"] "+ list[i].name + "후보(" + list[i].job + ")</br>";
+		                }
+		                $("#before").append(json);
+		                $("#after").append(contentStr);
+		            }
+		        })
+	
+	}
+	
+	
+	Kakao.init('5276cac9d4895428e4d37a8da85ac514');
+	// 카카오 로그인 버튼을 생성합니다.
+	Kakao.Auth.createLoginButton({
+		container: '#kakao-login-btn',
+		success: function (authObj) {
+			alert(JSON.stringify(authObj));
+			console.log(authObj.access_token);
+			
+			
+			//location.href="logincontroller.jsp?command=login&myid=zDv40yRxINa2pVLtiCcU6NSi6AmJqfhePENrrwo9d2gAAAFvnKTWXw&mypw=zDv40yRxINa2pVLtiCcU6NSi6AmJqfhePENrrwo9d2gAAAFvnKTWXw";
+		},
+		fail: function (err) {
+			alert("실패했습니다");
+		}
+	});
+	
+	
+
+	
+
+  //]]>
+</script>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>구글로그인</th>
+			<td>
+				<div class="g-signin2" data-onsuccess="onSignIn"></div>
+				
+			</td>
+			
+		</tr>
+
+		<tr>
+			<td colspan="9">
+				<input type="submit" value="login">
+				<input type="button" value="register" onclick="registerForm()">
+				
+
+			</td>
+		</tr>
+
+	
+	</table>
+	<a href="#" onclick="signOut();">로그아웃</a>
+
+	</form>
+</body>
+</html>

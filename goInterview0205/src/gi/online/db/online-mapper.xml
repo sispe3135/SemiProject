@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "gi.online.mapper">
+
+<resultMap id = "giOnlineMap" type = "giOnlineDto" >
+	<result property="chatSeq" column = "CHAT_SEQ"/>
+	<result property="chatTitle" column = "CHAT_TITLE"/>
+	<result property="chatMgr" column = "CHAT_MGR"/>
+	<result property="chatStDt" column = "CHAT_ST_DT"/>
+	<result property="chatStat" column = "CHAT_STAT"/>
+	<result property="chatNum" column = "CHAT_NUM"/>
+	<result property="id" column = "ID"/>
+	<result property="cmDoc" column = "CM_DOC"/>
+	<result property="cmChatNo" column = "CM_CHAT_NO"/>
+	<result property="fdSeq" column = "FD_SEQ"/>
+	<result property="fdTitle" column = "FD_TITLE"/>
+	<result property="fdContents" column = "FD_CONTENTS"/>
+	<result property="fdUser" column = "FD_USER"/>
+	<result property="fdDt" column = "FD_DT"/>
+			
+</resultMap>
+
+
+<select id="getCalViewListById" resultMap="giOnlineMap">
+SELECT *
+FROM
+(SELECT (ROW_NUMBER() OVER(PARTITION BY SUBSTR(CHAT_ST_DT,1,8) ORDER BY CHAT_ST_DT))RN, CHAT_SEQ, CHAT_TITLE, 
+CHAT_MGR, CHAT_ST_DT,  CHAT_STAT, ID, CM_DOC, CM_CHAT_NO
+FROM TB_CHAT JOIN TB_CHAT_MBR
+USING (CHAT_SEQ)
+WHERE ID = #{id} AND SUBSTR(CHAT_ST_DT,1,6) = #{chatStDt})
+WHERE RN BETWEEN 1 AND 3
+ORDER BY CHAT_ST_DT
+
+</select>
+
+<insert id="insert" parameterType = "giOnlineDto">
+	INSERT INTO TB_CHAT VALUES(TB_CHAT_SEQ.NEXTVAL, #{chatTitle}, #{chatMgr}, #{chatStDt}, 
+	#{chatStat}, #{chatNum})
+</insert>
+
+<insert id="onlinejoin" parameterType="giOnlineDto">
+	INSERT INTO TB_CHAT_MBR VALUES(#{chatSeq},#{id},NULL,NULL)
+</insert>
+
+<select id="getChatSeq" resultMap="giOnlineMap">
+	SELECT CHAT_SEQ FROM TB_CHAT WHERE CHAT_MGR=#{chatMgr} AND CHAT_ST_DT=#{chatStDt}
+</select>
+
+<select id = "getChatList"  resultMap="giOnlineMap">
+	SELECT CHAT_TITLE, CHAT_ST_DT
+	FROM TB_CHAT JOIN TB_CHAT_MBR USING (CHAT_SEQ) 
+	WHERE ID = #{id}
+	AND SUBSTR(CHAT_ST_DT, 1, 8) = #{chatStDt}
+</select>
+
+<select id = "onlineListAll" resultMap="giOnlineMap">
+	SELECT CHAT_TITLE, CHAT_MGR, CHAT_ST_DT, CHAT_NUM
+	FROM TB_CHAT
+	WHERE CHAT_STAT = 'R'
+	ORDER BY CHAT_ST_DT
+</select>
+
+
+</mapper>

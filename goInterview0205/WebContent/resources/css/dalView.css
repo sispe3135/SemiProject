@@ -1,0 +1,18 @@
+.dalCnt{
+	position: absolute;
+	top: 800px;
+	float: left;
+	left: 50%;
+	font-family: 'Fira Sans', 'Extra-Light';
+	font-size: 50pt;
+	letter-spacing: 3px;
+}
+#dalId {
+	position: absolute;
+	top: 800px;
+	float: left;
+	left: 30%;
+	font-family: 'Fira Sans', 'Extra-Light';
+	font-size: 50pt;
+	letter-spacing: 3px;
+}

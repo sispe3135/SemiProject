@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pay.mapper">
+	
+	<resultMap type="MemberDto" id="MemberResultMap">
+		<result property="id" column="ID"/>
+		<result property="dalCnt" column="DAL_CNT"/>
+	</resultMap>
+	
+	
+	
+	<update id="updatePay" parameterType="MemberDto">	
+		UPDATE TB_USER
+		SET DAL_CNT = DAL_CNT + #{dalCnt}
+		WHERE ID = #{id}
+	</update>
+	
+	<select id = "selectDalCnt" parameterType="MemberDto" resultMap="MemberResultMap">
+		SELECT ID, DAL_CNT FROM TB_USER WHERE ID = #{id}
+	</select>
+	
+</mapper>

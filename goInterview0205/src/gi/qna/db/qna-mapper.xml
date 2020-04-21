@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gi.qna.db.qnaListMapper">
+
+	<resultMap type="giQnaDto" id="giQnaResultMap">
+		<result property="qSeq" column="Q_SEQ"/>
+		<result property="qPw" column="Q_PW"/>
+		<result property="qStat" column="Q_STAT"/>
+		<result property="qTitle" column="Q_TITLE"/>
+		<result property="id" column="ID"/>
+		<result property="qInstDt" column="Q_INST_DT"/>
+		<result property="qContents" column="Q_CONTENTS"/>
+		<result property="qGrpSeq" column="Q_GRP_SEQ"/>
+		<result property="qOriFileNm" column="Q_ORI_FILE_NM"/>
+		<result property="qSaveFileNm" column="Q_SAVE_FILE_NM"/>
+		<result property="qSavePath" column="Q_SAVE_PATH"/>
+		<result property="reId" column="RE_ID"/>
+		<result property="reContents" column="RE_CONTENTS"/>
+	</resultMap>
+
+
+	<select id="selectQnaList" parameterType="hashMap" resultMap="giQnaResultMap">
+		SELECT RM, Q_SEQ, Q_PW, Q_STAT, Q_TITLE, ID, Q_INST_DT
+		FROM (
+			SELECT ROWNUM AS RM, Q_SEQ, Q_PW, Q_STAT, Q_TITLE, ID, TO_CHAR(Q_INST_DT, 'YYYY-MM-DD') AS Q_INST_DT
+			FROM (
+				SELECT Q_SEQ, Q_PW, Q_STAT, Q_TITLE, ID, Q_INST_DT 
+				FROM TB_QNA
+				ORDER BY Q_INST_DT DESC
+				))
+		WHERE RM BETWEEN #{beginRow} AND #{endRow}
+	</select>
+
+	<select id="cntQnaList" resultType="int">
+		SELECT count(*) as cnt
+		FROM TB_QNA
+	</select>
+
+	<select id="selectQnaOne" parameterType="int" resultMap="giQnaResultMap">
+		SELECT Q_SEQ, Q_PW, Q_TITLE, Q_CONTENTS, ID, Q_INST_DT, Q_ORI_FILE_NM, Q_SAVE_FILE_NM, Q_STAT, RE_ID, RE_CONTENTS
+		FROM TB_QNA
+		WHERE Q_SEQ = #{qSeq}
+	</select>
+
+	<insert id="insertQnaOne" parameterType="giQnaDto">
+		INSERT INTO TB_QNA (Q_GRP_SEQ, Q_PW, Q_STAT, Q_TITLE, Q_CONTENTS, ID, Q_INST_DT, Q_ORI_FILE_NM, Q_SAVE_FILE_NM, Q_SAVE_PATH)
+		VALUES(1, #{qPw}, 'R', #{qTitle}, #{qContents}, #{id}, SYSDATE, #{qOriFileNm}, #{qSaveFileNm}, #{qSavePath})
+	</insert>
+	
+	<update id="updateQnaAnswer" parameterType="giQnaDto">
+		UPDATE TB_QNA
+		SET RE_CONTENTS = #{reContents}, RE_ID = #{reId}, Q_STAT = 'E'
+		WHERE Q_SEQ = #{qSeq}
+	</update>
+
+</mapper>
